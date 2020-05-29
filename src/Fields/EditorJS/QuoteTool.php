@@ -5,10 +5,10 @@ namespace AlexSabur\OrchidEditorJSField\Fields\EditorJS;
 /**
  * 
  */
-class EmbedTool extends Tool
+class QuoteTool extends Tool
 {
     /**
      * @var string
      */
-    protected $class = 'EmbedTool';
+    protected $class = 'QuoteTool';
 }

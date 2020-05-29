@@ -17,11 +17,11 @@ class LinkTool extends Tool
     {
         $tool = (new static())->name($name);
 
-        // $tool->addBeforeConvert(function () {
-        //     if ($this->get('endpoint') == '#') {
-        //         # code...
-        //     };
-        // });
+        $tool->addBeforeConvert(function () {
+            if ($this->config('endpoint') === '#') {
+                $this->config('endpoint', url()->route('platform.systems.editorjs.link'));
+            };
+        });
 
         return $tool;
     }

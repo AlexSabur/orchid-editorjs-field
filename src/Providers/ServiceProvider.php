@@ -8,6 +8,7 @@ use Orchid\Platform\Dashboard;
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     const PACKAGE_PATH = __DIR__ . '/../../';
+    const CONFIG_PATH = self::PACKAGE_PATH . 'config/orchid-editorjs-field.php';
 
     /**
      * @var Dashboard
@@ -25,10 +26,20 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->dashboard = $dashboard;
 
-        $this->loadViewsFrom(static::PACKAGE_PATH . '/resources/views', 'platform');
+        $this->loadViewsFrom(static::PACKAGE_PATH . 'resources/views', 'platform');
 
         $this->registerResources()
             ->registerProviders();
+
+
+        $this->publishes([
+            static::CONFIG_PATH => config_path('orchid-editorjs-field.php'),
+        ], 'config');
+    }
+
+    public function register()
+    {
+        $this->mergeConfigFrom(static::CONFIG_PATH, 'orchid-editorjs-field');
     }
 
     /**

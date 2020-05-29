@@ -10,7 +10,7 @@ class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\Rout
     public function map()
     {
         Route::domain((string) config('platform.domain'))
-            ->prefix(Dashboard::prefix('/systems'))
+            ->prefix(Dashboard::prefix('/systems/editorjs'))
             ->as('platform.')
             ->middleware(config('platform.middleware.private'))
             ->group(realpath(ServiceProvider::PACKAGE_PATH . '/routes/systems.php'));

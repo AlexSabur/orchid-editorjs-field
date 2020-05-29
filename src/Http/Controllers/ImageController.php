@@ -3,27 +3,12 @@
 namespace AlexSabur\OrchidEditorJSField\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Orchid\Attachment\Models\Attachment;
-use Orchid\Platform\Dashboard;
 use Orchid\Platform\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
 use Orchid\Attachment\File;
 
 class ImageController extends Controller
 {
-    /**
-     * @var Attachment
-     */
-    protected $attachment;
-
-    /**
-     * AttachmentController constructor.
-     */
-    public function __construct()
-    {
-        $this->attachment = Dashboard::modelClass(Attachment::class);
-    }
-
     public function byUrl(Request $request)
     {
         dd($request->all());

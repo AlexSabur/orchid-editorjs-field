@@ -3,6 +3,7 @@
 namespace AlexSabur\OrchidEditorJSField\Fields\EditorJS;
 
 use Closure;
+use Illuminate\Support\Arr;
 
 abstract class Tool
 {
@@ -54,13 +55,23 @@ abstract class Tool
         return $this;
     }
 
-    public function inlineToolbar($inlineToolbar = null)
+    /**
+     * 
+     * @param string[]|bool $value 
+     * @return $this 
+     */
+    public function inlineToolbar($value = null)
     {
-        $this->inlineToolbar = $inlineToolbar;
+        $this->inlineToolbar = $value;
 
         return $this;
     }
 
+    /**
+     * 
+     * @param string $shortcut 
+     * @return $this 
+     */
     public function shortcut($shortcut = null)
     {
         $this->shortcut = $shortcut;
@@ -68,9 +79,15 @@ abstract class Tool
         return $this;
     }
 
-    public function config($data = [])
+    public function config($key, $value = null)
     {
-        $this->config = array_merge($this->config, $data);
+        if (is_array($key)) {
+            $this->config = array_merge($this->config, $key);
+        } else if ($value === null) {
+            return Arr::get($this->config, $key);
+        } else {
+            Arr::set($this->config, $key, $value);
+        }
 
         return $this;
     }
@@ -80,7 +97,7 @@ abstract class Tool
      *
      * @return static
      */
-    public function addBeforeConvert(Closure $closure)
+    protected function addBeforeConvert(Closure $closure)
     {
         $this->beforeConvert[] = $closure;
 
@@ -92,7 +109,7 @@ abstract class Tool
      *
      * @return $this
      */
-    public function runBeforeConvert(): self
+    protected function runBeforeConvert(): self
     {
         foreach ($this->beforeConvert as $convert) {
             $convert->call($this);
@@ -101,7 +118,7 @@ abstract class Tool
         return $this;
     }
 
-    public function params()
+    protected function params()
     {
         $params = [
             'class' => $this->class,

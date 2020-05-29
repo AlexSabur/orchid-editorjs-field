@@ -1,10 +1,20 @@
+// import UnderlineTool from "@editorjs/underline";
+import ChecklistTool from "@editorjs/checklist";
+import CodeTool from "@editorjs/code";
+import DelimiterTool from "@editorjs/delimiter";
 import EditorJS from "@editorjs/editorjs";
+import EmbedTool from "@editorjs/embed";
 import HeaderTool from "@editorjs/header";
 import ImageTool from "@editorjs/image";
-import TableTool from "@editorjs/table";
-import ParagraphTool from "@editorjs/paragraph";
+import InlineCodeTool from "@editorjs/inline-code";
 import LinkTool from "@editorjs/link";
-import EmbedTool from "@editorjs/embed";
+import ListTool from "@editorjs/list";
+import MarkerTool from "@editorjs/marker";
+import ParagraphTool from "@editorjs/paragraph";
+import QuoteTool from "@editorjs/quote";
+import RawTool from "@editorjs/raw";
+import TableTool from "@editorjs/table";
+import WarningTool from "@editorjs/warning";
 
 export default class extends window.Controller {
   tools = {
@@ -13,7 +23,16 @@ export default class extends window.Controller {
     TableTool: TableTool,
     ParagraphTool: ParagraphTool,
     LinkTool: LinkTool,
-    EmbedTool: EmbedTool
+    EmbedTool: EmbedTool,
+    ListTool: ListTool,
+    CodeTool: CodeTool,
+    ChecklistTool: ChecklistTool,
+    MarkerTool: MarkerTool,
+    WarningTool: WarningTool,
+    RawTool: RawTool,
+    QuoteTool: QuoteTool,
+    InlineCodeTool: InlineCodeTool,
+    DelimiterTool: DelimiterTool
   };
 
   getClass(name) {

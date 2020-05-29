@@ -14,9 +14,4 @@ class HeaderTool extends Tool
      * @var string
      */
     protected $class = 'HeaderTool';
-
-    public static function make(string $name): self
-    {
-        return (new static())->name($name);
-    }
 }

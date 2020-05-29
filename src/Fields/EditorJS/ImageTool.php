@@ -2,16 +2,6 @@
 
 namespace AlexSabur\OrchidEditorJSField\Fields\EditorJS;
 
-/**
- * 
- * @method ImageTool endpoints($value = [])
- * @method ImageTool field($value = [])
- * @method ImageTool types($value = null)
- * @method ImageTool additionalRequestData($value = '')
- * @method ImageTool additionalRequestHeaders($value = [])
- * @method ImageTool captionPlaceholder($value = null)
- * @method ImageTool buttonContent($value = null)
- */
 class ImageTool extends Tool
 {
     /**
@@ -31,19 +21,19 @@ class ImageTool extends Tool
         $tool = (new static())->name($name);
 
         $tool->addBeforeConvert(function () {
-            if ($this->config['endpoints']['byFile'] === '#') {
-                $this->config['endpoints']['byFile'] = url()->route('platform.systems.editorjs.image-by-file');
+            if ($this->config('endpoints.byFile') === '#') {
+                $this->config('endpoints.byFile', url()->route('platform.systems.editorjs.image-by-file'));
             }
         });
 
         $tool->addBeforeConvert(function () {
-            if ($this->config['endpoints']['byUrl'] === '#') {
-                $this->config['endpoints']['byUrl'] = url()->route('platform.systems.editorjs.image-by-url');
+            if ($this->config('endpoints.byUrl') === '#') {
+                $this->config('endpoints.byUrl', url()->route('platform.systems.editorjs.image-by-url'));
             }
         });
 
         $tool->addBeforeConvert(function () {
-            $this->config['additionalRequestHeaders']['X-CSRF-TOKEN'] = csrf_token();
+            $this->config('additionalRequestHeaders.X-CSRF-TOKEN', csrf_token());
         });
 
         return $tool;
@@ -58,9 +48,9 @@ class ImageTool extends Tool
     public function endpoints($key, $value = null)
     {
         if (is_array($key)) {
-            $this->config['endpoints'] = $key;
+            $this->config('endpoints', $key);
         } else {
-            $this->config['endpoints'][$key] = $value;
+            $this->config("endpoints.{$key}", $value);
         }
 
         return $this;
