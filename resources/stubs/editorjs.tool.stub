@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyNamespace;
+
+use AlexSabur\OrchidEditorJSField\Fields\EditorJS\Tool;
+
+class DummyClass extends Tool
+{
+    /**
+     * @var string
+     */
+    protected $class = 'DummyClass';
+}

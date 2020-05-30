@@ -2,6 +2,8 @@
 
 namespace AlexSabur\OrchidEditorJSField\Providers;
 
+use AlexSabur\OrchidEditorJSField\Commands\LayoutCommand;
+use AlexSabur\OrchidEditorJSField\Commands\ToolCommand;
 use Illuminate\Support\Facades\View;
 use Orchid\Platform\Dashboard;
 
@@ -31,6 +33,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->registerResources()
             ->registerProviders();
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                LayoutCommand::class,
+                ToolCommand::class,
+            ]);
+        }
 
         $this->publishes([
             static::CONFIG_PATH => config_path('orchid-editorjs-field.php'),

@@ -1,0 +1,28 @@
+<?php
+
+namespace DummyNamespace;
+
+use AlexSabur\OrchidEditorJSField\Fields\EditorJS\ParagraphTool;
+use AlexSabur\OrchidEditorJSField\Fields\EditorJS\Tool;
+use AlexSabur\OrchidEditorJSField\Screen\Layouts\EditorJS;
+
+class DummyClass extends EditorJS
+{
+    /**
+     * Data source.
+     *
+     * @var string
+     */
+    protected $target = null;
+
+    /**
+     *
+     * @return Tool[]
+     */
+    protected function tools(): array
+    {
+        return [
+            ParagraphTool::make('paragraph'),
+        ];
+    }
+}
