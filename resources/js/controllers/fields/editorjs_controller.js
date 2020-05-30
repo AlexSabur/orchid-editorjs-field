@@ -36,7 +36,7 @@ export default class extends window.Controller {
   };
 
   getClass(name) {
-    return this.tools[name];
+    return window?.editorJSTools?.[name] ?? this.tools[name];
   }
 
   getTools() {
@@ -46,6 +46,10 @@ export default class extends window.Controller {
         json[key] = this.getClass(value);
       } else {
         json[key].class = this.getClass(json[key].class);
+      }
+
+      if (typeof (json[key].class || json[key]) === "undefined") {
+        delete json[key];
       }
     }
     return json;
