@@ -7,7 +7,7 @@
 [![Packagist](https://poser.pugx.org/AlexSabur/orchid-editorjs-field/d/total.svg)](https://packagist.org/packages/AlexSabur/orchid-editorjs-field)
 [![Packagist](https://img.shields.io/packagist/l/AlexSabur/orchid-editorjs-field.svg)](https://packagist.org/packages/AlexSabur/orchid-editorjs-field)
 
-Package description: CHANGE ME
+Package description: Work in process
 
 ## Installation
 
@@ -32,14 +32,60 @@ composer require alexsabur/orchid-editorjs-field:dev-master
                 EditorJS::make('mydata')->tools([
                     MarkerTool::make('marker'),
                     ImageTool::make('picture')
+                        ->config('additionalRequestData.group', 'editorjs')
                         ->shortcut('CMD+SHIFT+I'),
                     HeaderTool::make('header')
                         ->inlineToolbar(false)
-                        ->config('placeholder', 'My header'),
+                        ->config([
+                            'placeholder' => 'My header'
+                        ]),
                 ])
             ]),
         ];
     }
+
+```
+
+or
+
+```bash
+php artisan orchid:editorjs:layout SuperEditorJSLayout
+```
+
+
+```php
+
+    /**
+     * Views.
+     *
+     * @return Layout[]
+     */
+    public function layout(): array
+    {
+        return [
+            Layout::rows([
+                EditorJS::make('mydata')->tools(SuperEditorJSLayout::class)
+            ]),
+        ];
+    }
+
+```
+
+### Register new tool
+
+```bash
+php artisan orchid:editorjs:tool MySuperTool
+```
+
+And in js
+```js
+
+class MySuperTool {
+    //code
+}
+
+window.editorJSTools = window.editorJSTools || [];
+window.editorJSTools['MySuperTool'] = MySuperTool;
 
 ```
 
