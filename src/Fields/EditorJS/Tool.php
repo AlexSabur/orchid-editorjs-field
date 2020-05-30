@@ -7,33 +7,61 @@ use Illuminate\Support\Arr;
 
 abstract class Tool
 {
+    /**
+     * Tool name
+     * 
+     * @var string
+     */
     protected $name;
 
     /**
+     * Tool view name
+     * 
+     * @var string|null
+     */
+    protected $view;
+
+    /**
      * Tool's class
+     * 
+     * @var string
      */
     protected $class;
 
     /**
      * User configuration object that will be passed to the Tool's constructor
+     * 
+     * @var array
      */
     protected $config = [];
 
     /**
      * Is need to show Inline Toolbar.
      * Can accept array of Tools for InlineToolbar or boolean.
+     * 
+     * @var null|boolean|string[]
      */
     protected $inlineToolbar;
 
     /**
      * Define shortcut that will render Tool
+     * 
+     * @var null|string
      */
     protected $shortcut;
 
     /**
      * Tool's Toolbox settings
+     * 
+     * @var array
      */
     protected $toolbox = [];
+
+    /**
+     * 
+     * @var array
+     */
+    protected $data = [];
 
     /**
      * A set of closure functions
@@ -48,9 +76,46 @@ abstract class Tool
         return (new static())->name($name);
     }
 
-    public function name($name)
+    /**
+     * 
+     * @param string|null $name 
+     * @return $this|null
+     */
+    public function name($name = null)
     {
+        if (is_null($name)) {
+            return $this->name;
+        }
+
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param array $data 
+     * @return $this|null
+     */
+    public function data(array $data = null)
+    {
+        if (is_null($data)) {
+            return $this->data;
+        }
+
+        $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $prefix 
+     * @return $this 
+     */
+    public function setPrefix(string $prefix)
+    {
+        $this->view = "{$prefix}{$this->view}";
 
         return $this;
     }
@@ -79,6 +144,12 @@ abstract class Tool
         return $this;
     }
 
+    /**
+     * 
+     * @param array|string $key 
+     * @param mixed|null $value 
+     * @return mixed 
+     */
     public function config($key, $value = null)
     {
         if (is_array($key)) {
@@ -127,9 +198,9 @@ abstract class Tool
             'config' => $this->config,
         ];
 
-        foreach ($params as $key => $value) {
-            if ($value === null || (is_array($value) && count($value) === 0)) {
-                unset($params[$key]);
+        foreach (Arr::dot($params) as $key => $value) {
+            if ($value === null) {
+                Arr::forget($params, $key);
             }
         }
 
@@ -138,6 +209,15 @@ abstract class Tool
         }
 
         return $params;
+    }
+
+    public function build()
+    {
+        if ($this->view) {
+            return view($this->view, $this->data);
+        }
+
+        return null;
     }
 
     public function toArray()

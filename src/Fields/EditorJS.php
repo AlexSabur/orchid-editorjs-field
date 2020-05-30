@@ -6,7 +6,6 @@ use Orchid\Screen\Field;
 
 /**
  * 
- * @method EditorJS tools(array $value = [])
  * @method EditorJS value($value = null)
  */
 class EditorJS extends Field
@@ -60,5 +59,16 @@ class EditorJS extends Field
         });
 
         return $input;
+    }
+
+    public function tools($tools = [])
+    {
+        if (is_array($tools)) {
+            $this->attributes['tools'] = $tools;
+        } else {
+            $this->attributes['tools'] = app($tools)->tools();
+        }
+
+        return $this;
     }
 }
