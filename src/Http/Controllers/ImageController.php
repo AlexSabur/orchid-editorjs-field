@@ -5,13 +5,41 @@ namespace AlexSabur\OrchidEditorJSField\Http\Controllers;
 use Illuminate\Http\Request;
 use Orchid\Platform\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 use Orchid\Attachment\File;
 
 class ImageController extends Controller
 {
     public function byUrl(Request $request)
     {
-        dd($request->all());
+        if (!$stream = @fopen($request->url, 'r')) {
+            return $this->fail();
+        }
+
+        $temporaryFile = tempnam(sys_get_temp_dir(), 'editorjs-image');
+        file_put_contents($temporaryFile, $stream);
+
+        $filename = basename(parse_url($request->url, PHP_URL_PATH));
+        $filename = str_replace('%20', ' ', $filename);
+
+        if ($filename === '') {
+            $filename = 'file';
+        }
+
+        $mediaExtension = explode('/', mime_content_type($temporaryFile));
+
+        if (!Str::contains($filename, '.')) {
+            $filename = "{$filename}.{$mediaExtension[1]}";
+        }
+
+
+        $file = new UploadedFile($temporaryFile, $filename);
+
+        $model = $this->createModel($file, $request);
+
+        return $this->success([
+            'url' => $model->url
+        ]);
     }
 
     public function byFile(Request $request)
@@ -22,6 +50,13 @@ class ImageController extends Controller
 
         return $this->success([
             'url' => $model->url
+        ]);
+    }
+
+    protected function fail()
+    {
+        return response()->json([
+            'success' => 0,
         ]);
     }
 
