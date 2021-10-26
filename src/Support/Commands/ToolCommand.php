@@ -1,32 +1,32 @@
 <?php
 
-namespace AlexSabur\OrchidEditorJSField\Commands;
+namespace AlexSabur\OrchidEditorJSField\Support\Commands;
 
 use AlexSabur\OrchidEditorJSField\Providers\ServiceProvider;
 use Illuminate\Console\GeneratorCommand;
 
-class LayoutCommand extends GeneratorCommand
+class ToolCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'orchid:editorjs:layout';
+    protected $name = 'orchid:editorjs:tool';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new editorjs layout class';
+    protected $description = 'Create a new editorjs tool class';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'EditorJS';
+    protected $type = 'EditorJSTool';
 
     /**
      * Get the stub file for the generator.
@@ -35,7 +35,7 @@ class LayoutCommand extends GeneratorCommand
      */
     protected function getStub(): string
     {
-        return ServiceProvider::PACKAGE_PATH . 'resources/stubs/editorjs.layout.stub';
+        return ServiceProvider::PACKAGE_PATH . 'resources/stubs/editorjs.tool.stub';
     }
 
     /**
@@ -47,6 +47,6 @@ class LayoutCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace.'\Orchid\Layouts';
+        return $rootNamespace.'\Orchid\EditorJS';
     }
 }
