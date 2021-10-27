@@ -2,6 +2,7 @@
 
 namespace AlexSabur\OrchidEditorJSField\Http\Controllers;
 
+use AlexSabur\OrchidEditorJSField\Support\Actions\LoadImage;
 use Illuminate\Http\Request;
 use Orchid\Platform\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
@@ -44,13 +45,11 @@ class ImageController extends Controller
 
     public function byFile(Request $request)
     {
-        $image = $request->file('image');
-
-        $model = $this->createModel($image, $request);
-
-        return $this->success([
-            'url' => $model->url
-        ]);
+        try {
+            $result = app(LoadImage::class)->loadByRequest($request);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     protected function fail()

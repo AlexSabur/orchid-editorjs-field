@@ -10,10 +10,12 @@ use Orchid\Screen\Field;
  */
 class EditorJS extends Field
 {
+    protected static $toolMap = [];
+
     /**
      * @var string
      */
-    protected $view = 'platform::fields.editorjs';
+    protected $view = 'orchid-editorjs-field::field';
 
     /**
      * Default attributes value.
@@ -61,12 +63,17 @@ class EditorJS extends Field
         return $input;
     }
 
-    public function tools($tools = [])
+    /**
+     * 
+     * @param EditorJS\Tool[]|string $tools 
+     * @return $this 
+     */
+    public function tools($tools)
     {
         if (is_array($tools)) {
             $this->attributes['tools'] = $tools;
-        } else {
-            $this->attributes['tools'] = app($tools)->tools();
+        } elseif(is_string($tools) && array_key_exists($tools, static::$toolMap)) {
+            $this->attributes['tools'] = static::$toolMap[$tools];
         }
 
         return $this;

@@ -34,7 +34,7 @@ class PlatformServiceProvider extends ServiceProvider
 
             $this->loadViewsFrom(
                 __DIR__ . '/../../../resources/views',
-                'platform'
+                'orchid-editorjs-field'
             );
 
             $this->publishes(

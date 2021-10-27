@@ -11,8 +11,8 @@ class ImageTool extends Tool
 
     protected $config = [
         'endpoints' => [
-            'byFile' => '#',
-            'byUrl' => '#',
+            'byFile' => null,
+            'byUrl' => null,
         ]
     ];
 
@@ -21,14 +21,14 @@ class ImageTool extends Tool
         $tool = (new static())->name($name);
 
         $tool->addBeforeConvert(function () {
-            if ($this->config('endpoints.byFile') === '#') {
-                $this->config('endpoints.byFile', url()->route('platform.systems.editorjs.image-by-file'));
+            if ($this->config('endpoints.byFile') === null) {
+                $this->config('endpoints.byFile', route('platform.systems.editorjs.image-by-file'));
             }
         });
 
         $tool->addBeforeConvert(function () {
-            if ($this->config('endpoints.byUrl') === '#') {
-                $this->config('endpoints.byUrl', url()->route('platform.systems.editorjs.image-by-url'));
+            if ($this->config('endpoints.byUrl') === null) {
+                $this->config('endpoints.byUrl', route('platform.systems.editorjs.image-by-url'));
             }
         });
 
