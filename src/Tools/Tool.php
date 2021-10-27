@@ -59,6 +59,11 @@ abstract class Tool implements Arrayable
         return $this->name ?: Str::lower(Str::beforeLast(class_basename($this), 'Tool'));
     }
 
+    public function getClass()
+    {
+        return $this->class ?: class_basename($this);
+    }
+
     public function getDefaultConfig()
     {
         return $this->defaultConfig;
@@ -132,7 +137,7 @@ abstract class Tool implements Arrayable
     public function toArray()
     {
         $parameters =  [
-            'class' => $this->class,
+            'class' => $this->getClass(),
         ];
 
         if (filled($config = $this->getConfig())) {
