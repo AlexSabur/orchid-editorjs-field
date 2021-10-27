@@ -1,4 +1,9 @@
 import EditorJS from "@editorjs/editorjs"
+// tools
+import ParagraphTool from "@editorjs/paragraph"
+import HeaderTool from "@editorjs/header"
+import LinkTool from "@editorjs/link"
+import ImageTool from "@editorjs/image"
 
 export default class extends window.Controller {
   static targets = [
@@ -7,15 +12,65 @@ export default class extends window.Controller {
   ]
 
   static defaultTools = {
-
+    ParagraphTool,
+    HeaderTool,
+    LinkTool,
+    ImageTool,
   }
 
   initialize() {
-    window.editorJSTools = window.editorJSTools || [];
+    window.editorJSTools = window.editorJSTools || []
+  }
+
+  async connect() {
+    const tools = this.getTools()
+
+    const config = {
+      holder: this.holderTarget,
+
+      tools: tools,
+
+      data: this.value,
+
+      placeholder: this.placeholder,
+      minHeight: this.minHeight,
+      readonly: this.readonly,
+    }
+
+    dispatchEvent(new CustomEvent('orchid:editorjs:config', {
+      detail: {
+        config,
+        inputTarget: this.inputTarget,
+      }
+    }))
+
+    this.editor = new EditorJS({
+      ...config,
+      onChange: async (api) => {
+        try {
+          this.value = await api.saver.save()
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    })
+
+    try {
+      await this.editor.isReady
+
+      dispatchEvent(new CustomEvent('orchid:editorjs:ready', {
+        detail: {
+          editor: this.editor,
+          inputTarget: this.inputTarget,
+        }
+      }))
+    } catch (reason) {
+      console.error(`Editor.js initialization failed because of ${reason}`)
+    }
   }
 
   getClass(toolName) {
-    return window?.editorJSTools?.[toolName] ?? this.constructor.defaultTools[toolName];
+    return window?.editorJSTools?.[toolName] ?? this.constructor.defaultTools[toolName] ?? undefined
   }
 
   getTools() {
@@ -28,53 +83,43 @@ export default class extends window.Controller {
         json[key].class = this.getClass(json[key].class)
       }
 
-      if (typeof (json[key].class || json[key]) === "undefined") {
+      const detail = {
+        toolName: key,
+        toolConfig: json[key],
+      };
+
+      dispatchEvent(new CustomEvent('orchid:editorjs:tool', { detail }))
+      dispatchEvent(new CustomEvent(`orchid:editorjs:tool:${key}`, { detail }))
+
+      if (typeof json[key]?.class === "undefined") {
         delete json[key]
+
+        continue;
       }
     }
 
     return json
   }
 
-  connect() {
-    const tools = this.getTools();
-
-    this.editor = new EditorJS({
-      holder: this.holderTarget,
-      tools: tools,
-      data: this.value,
-      onChange: async (api) => {
-        try {
-          this.value = await api.saver.save()
-        } catch (error) {
-          console.error(error)
-        }
-      }
-    })
-
-    try {
-      await editor.isReady
-
-      dispatchEvent(new CustomEvent('orchid:editorjs:ready', {
-        detail: {
-          editor: this.editor,
-        }
-      }))
-
-      console.log('Editor.js is ready to work!')
-      /** Do anything you need after editor initialization */
-    } catch (reason) {
-      console.log(`Editor.js initialization failed because of ${reason}`)
-    }
+  disconnect() {
+    this.editor?.destroy()
   }
 
-  disconnect() {
-    this.editor.destroy()
+  get placeholder() {
+    return this.data.get('placeholder');
+  }
+
+  get readonly() {
+    return this.data.get('readonly') === 'true';
+  }
+
+  get minHeight() {
+    return this.data.get('minHeight');
   }
 
   get value() {
     try {
-      return JSON.parse(this.valueTarget.value)
+      return JSON.parse(this.inputTarget.value)
     } catch (error) {
       return undefined
     }
@@ -82,11 +127,11 @@ export default class extends window.Controller {
 
   set value(data) {
     try {
-      this.valueTarget.value = JSON.stringify(data)
+      this.inputTarget.value = JSON.stringify(data)
     } catch (error) {
-      this.valueTarget.value = '{}'
+      this.inputTarget.value = '{}'
     } finally {
-      this.valueTarget.dispatchEvent(new Event('change'));
+      this.inputTarget.dispatchEvent(new Event('change'))
     }
   }
 }

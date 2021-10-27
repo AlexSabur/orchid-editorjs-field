@@ -16,5 +16,5 @@ if (mix.inProduction()) {
 }
 
 mix
-    .js('resources/js/app.js', 'js/editorjs.js')
+    .js('resources/js/editorjs.js', 'js/editorjs.js')
     .setPublicPath('public');

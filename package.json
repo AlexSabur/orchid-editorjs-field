@@ -1,8 +1,17 @@
 {
   "name": "orchid-editorjs-field",
   "private": true,
+  "scripts": {
+    "dev": "mix",
+    "watch": "mix watch",
+    "prod": "mix --production"
+  },
   "devDependencies": {
     "@editorjs/editorjs": "^2.22.2",
+    "@editorjs/header": "^2.6.1",
+    "@editorjs/image": "^2.6.1",
+    "@editorjs/link": "^2.3.1",
+    "@editorjs/paragraph": "^2.8.0",
     "laravel-mix": "^6.0.34"
   }
 }
