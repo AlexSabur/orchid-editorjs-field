@@ -15,12 +15,12 @@ class LoadImage
 
     public static function loadByUrlUsing($callback)
     {
-        # code...
+        static::$loadByUrlCallback = $callback;
     }
 
     public static function loadByRequestUsing($callback)
     {
-        # code...
+        static::$loadByRequestCallback = $callback;
     }
 
     /**
