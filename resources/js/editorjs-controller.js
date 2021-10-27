@@ -39,6 +39,7 @@ export default class extends window.Controller {
 
     dispatchEvent(new CustomEvent('orchid:editorjs:config', {
       detail: {
+        inputName: this.inputName,
         config,
         inputTarget: this.inputTarget,
       }
@@ -60,6 +61,7 @@ export default class extends window.Controller {
 
       dispatchEvent(new CustomEvent('orchid:editorjs:ready', {
         detail: {
+          inputName: this.inputName,
           editor: this.editor,
           inputTarget: this.inputTarget,
         }
@@ -70,7 +72,7 @@ export default class extends window.Controller {
   }
 
   getClass(toolName) {
-    return window?.editorJSTools?.[toolName] ?? this.constructor.defaultTools[toolName] ?? undefined
+    return window?.editorJSTools?.[toolName] ?? this.constructor.defaultTools[toolName] ?? toolName
   }
 
   getTools() {
@@ -78,23 +80,26 @@ export default class extends window.Controller {
 
     for (let [key, value] of Object.entries(json)) {
       if (typeof value === "string") {
-        json[key] = this.getClass(value)
+        json[key] = {
+          class: this.getClass(value)
+        }
       } else {
         json[key].class = this.getClass(json[key].class)
       }
 
       const detail = {
+        inputName: this.inputName,
         toolName: key,
         toolConfig: json[key],
-      };
+      }
 
       dispatchEvent(new CustomEvent('orchid:editorjs:tool', { detail }))
       dispatchEvent(new CustomEvent(`orchid:editorjs:tool:${key}`, { detail }))
 
-      if (typeof json[key]?.class === "undefined") {
+      if (typeof json[key]?.class === "string" || typeof json[key]?.class === "undefined") {
         delete json[key]
 
-        continue;
+        continue
       }
     }
 
@@ -106,15 +111,19 @@ export default class extends window.Controller {
   }
 
   get placeholder() {
-    return this.data.get('placeholder');
+    return this.data.get('placeholder')
   }
 
   get readonly() {
-    return this.data.get('readonly') === 'true';
+    return this.data.get('readonly') === 'true'
   }
 
   get minHeight() {
-    return this.data.get('minHeight');
+    return this.data.get('minHeight')
+  }
+
+  get inputName() {
+    return this.inputTarget.name
   }
 
   get value() {
