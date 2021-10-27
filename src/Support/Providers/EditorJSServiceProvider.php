@@ -2,12 +2,13 @@
 
 namespace AlexSabur\OrchidEditorJSField\Support\Providers;
 
+use AlexSabur\OrchidEditorJSField\EditorJS;
 use AlexSabur\OrchidEditorJSField\Support\Commands\ToolCommand;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Orchid\Support\Facades\Dashboard;
 
-class PlatformServiceProvider extends ServiceProvider
+class EditorJSServiceProvider extends ServiceProvider
 {
     public function register()
     {
@@ -43,6 +44,8 @@ class PlatformServiceProvider extends ServiceProvider
                 ],
                 'config'
             );
+
+            $this->loadRoutesFrom(__DIR__ . '/../../../routes/systems.php');
         });
     }
 }

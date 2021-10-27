@@ -35,7 +35,7 @@ class ToolCommand extends GeneratorCommand
      */
     protected function getStub(): string
     {
-        return ServiceProvider::PACKAGE_PATH . 'resources/stubs/editorjs.tool.stub';
+        return __DIR__ . '/../../../resources/stubs/editorjs.tool.stub';
     }
 
     /**

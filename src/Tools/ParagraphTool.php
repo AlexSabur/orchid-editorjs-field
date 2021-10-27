@@ -1,9 +1,9 @@
 <?php
 
-namespace AlexSabur\OrchidEditorJSField\Fields\EditorJS;
+namespace AlexSabur\OrchidEditorJSField\Tools;
 
 /**
- * 
+ *
  */
 class ParagraphTool extends Tool
 {
@@ -12,5 +12,5 @@ class ParagraphTool extends Tool
      */
     protected $class = 'ParagraphTool';
 
-    protected $view = 'paragraph';
+    protected $inlineToolbar = true;
 }

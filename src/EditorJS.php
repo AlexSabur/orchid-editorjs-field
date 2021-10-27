@@ -1,17 +1,15 @@
 <?php
 
-namespace AlexSabur\OrchidEditorJSField\Fields;
+namespace AlexSabur\OrchidEditorJSField;
 
 use Orchid\Screen\Field;
 
 /**
- * 
+ *
  * @method EditorJS value($value = null)
  */
 class EditorJS extends Field
 {
-    protected static $toolMap = [];
-
     /**
      * @var string
      */
@@ -25,6 +23,11 @@ class EditorJS extends Field
     protected $attributes = [
         'tools' => [],
         'value' => [],
+        'title' => '',
+        'hidden' => false,
+        'readonly' => false,
+        'placeholder' => null,
+        'minHeight' => 300,
     ];
 
     /**
@@ -37,43 +40,38 @@ class EditorJS extends Field
         'name',
     ];
 
-    /**
-     * @param string|null $name
-     *
-     * @return self
-     */
-    public static function make(string $name = null): self
+    public function __construct()
     {
-        $input = (new static())->name($name);
-
-        $input->addBeforeRender(function () {
+        $this->addBeforeRender(function () {
             $value = $this->get('value');
 
             if (!is_string($value)) {
-                $this->set('value', json_encode($value));
+                $this->set('value', json_encode($value, ENT_QUOTES));
             }
         });
 
-        $input->addBeforeRender(function () {
-            $this->set('tools', collect($this->get('tools'))->mapWithKeys(function (EditorJS\Tool $tool) {
-                return $tool->toArray();
-            })->toJson());
+        $this->addBeforeRender(function () {
+            $this->set(
+                'tools',
+                collect($this->get('tools'))
+                    ->mapWithKeys(function (Tools\Tool $tool) {
+                        return [
+                            $tool->getName() => $tool->toArray(),
+                        ];
+                    })
+                    ->toJson(ENT_QUOTES)
+            );
         });
-
-        return $input;
     }
 
     /**
-     * 
-     * @param EditorJS\Tool[]|string $tools 
-     * @return $this 
+     * @param Tools\Tool[]|string $tools
+     * @return $this
      */
     public function tools($tools)
     {
         if (is_array($tools)) {
-            $this->attributes['tools'] = $tools;
-        } elseif(is_string($tools) && array_key_exists($tools, static::$toolMap)) {
-            $this->attributes['tools'] = static::$toolMap[$tools];
+            $this->set('tools', $tools);
         }
 
         return $this;
