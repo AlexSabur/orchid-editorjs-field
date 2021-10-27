@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use AlexSabur\OrchidEditorJSField\Fields\EditorJS\Tool;
+use AlexSabur\OrchidEditorJSField\Tools\Tool;
 
 class DummyClass extends Tool
 {
