@@ -12,11 +12,6 @@ class EditorJSServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__ .  '/../../../config/orchid-editorjs-field.php',
-            'orchid-editorjs-field'
-        );
-
         $this->booted(function () {
             Dashboard::addPublicDirectory(
                 'editorjs',
@@ -36,13 +31,6 @@ class EditorJSServiceProvider extends ServiceProvider
             $this->loadViewsFrom(
                 __DIR__ . '/../../../resources/views',
                 'orchid-editorjs-field'
-            );
-
-            $this->publishes(
-                [
-                    __DIR__ .  '/../../../config/orchid-editorjs-field.php' => config_path('orchid-editorjs-field.php'),
-                ],
-                'config'
             );
 
             $this->loadRoutesFrom(__DIR__ . '/../../../routes/systems.php');
