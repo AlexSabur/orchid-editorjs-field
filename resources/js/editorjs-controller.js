@@ -6,6 +6,7 @@ import LinkTool from "@editorjs/link"
 import ImageTool from "@editorjs/image"
 import EmbedTool from "@editorjs/embed"
 import ListTool from "@editorjs/list"
+import QuoteTool from "@editorjs/quote"
 
 export default class extends window.Controller {
   static targets = [
@@ -20,6 +21,7 @@ export default class extends window.Controller {
     ImageTool,
     EmbedTool,
     ListTool,
+    QuoteTool,
   }
 
   initialize() {
@@ -102,6 +104,8 @@ export default class extends window.Controller {
 
       if (typeof json[key]?.class === "string" || typeof json[key]?.class === "undefined") {
         delete json[key]
+
+        console.warn(`Ignore [${key}] tool`);
 
         continue
       }
