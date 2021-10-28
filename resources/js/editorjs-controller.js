@@ -4,6 +4,7 @@ import ParagraphTool from "@editorjs/paragraph"
 import HeaderTool from "@editorjs/header"
 import LinkTool from "@editorjs/link"
 import ImageTool from "@editorjs/image"
+import EmbedTool from "@editorjs/embed"
 
 export default class extends window.Controller {
   static targets = [
@@ -16,6 +17,7 @@ export default class extends window.Controller {
     HeaderTool,
     LinkTool,
     ImageTool,
+    EmbedTool,
   }
 
   initialize() {

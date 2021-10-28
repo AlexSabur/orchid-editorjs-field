@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@editorjs/editorjs": "^2.22.2",
+    "@editorjs/embed": "^2.4.6",
     "@editorjs/header": "^2.6.1",
     "@editorjs/image": "^2.6.1",
     "@editorjs/link": "^2.3.1",
