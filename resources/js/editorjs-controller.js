@@ -5,6 +5,7 @@ import HeaderTool from "@editorjs/header"
 import LinkTool from "@editorjs/link"
 import ImageTool from "@editorjs/image"
 import EmbedTool from "@editorjs/embed"
+import ListTool from "@editorjs/list"
 
 export default class extends window.Controller {
   static targets = [
@@ -18,6 +19,7 @@ export default class extends window.Controller {
     LinkTool,
     ImageTool,
     EmbedTool,
+    ListTool,
   }
 
   initialize() {
