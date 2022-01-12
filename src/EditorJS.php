@@ -2,6 +2,8 @@
 
 namespace AlexSabur\OrchidEditorJSField;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Orchid\Screen\Field;
 
 /**
@@ -45,8 +47,20 @@ class EditorJS extends Field
         $this->addBeforeRender(function () {
             $value = $this->get('value');
 
-            if (!is_string($value)) {
+            if (is_array($value)) {
                 $this->set('value', json_encode($value, ENT_QUOTES));
+            }
+
+            if ($value instanceof Jsonable) {
+                $this->set('value', $value->toJson(ENT_QUOTES));
+            }
+
+            if ($value instanceof Arrayable) {
+                $this->set('value', json_encode($value->toArray(), ENT_QUOTES));
+            }
+
+            if (null === $value) {
+                $this->set('value', '{}');
             }
         });
 
