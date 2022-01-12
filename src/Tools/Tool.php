@@ -25,6 +25,12 @@ abstract class Tool implements Arrayable
     protected $class;
 
     /**
+     * Is tune flag
+     * @var bool|null
+     */
+    protected $isGlobalTune;
+
+    /**
      * @var null|bool|array
      * @see https://editorjs.io/enable-inline-toolbar#enable-inline-toolbar
      */
@@ -41,6 +47,8 @@ abstract class Tool implements Arrayable
     protected $defaultConfig = [];
 
     protected $config = [];
+
+    protected $tunes = [];
 
     public function __construct()
     {
@@ -117,6 +125,30 @@ abstract class Tool implements Arrayable
         return $this->shortcut;
     }
 
+    public function setIsGlobalTune($value)
+    {
+        $this->isGlobalTune = $value;
+
+        return $this;
+    }
+
+    public function getIsGlobalTune()
+    {
+        return $this->isGlobalTune;
+    }
+
+    public function setTunes($value)
+    {
+        $this->tunes = $value;
+
+        return $this;
+    }
+
+    public function getTunes()
+    {
+        return $this->tunes;
+    }
+
     public function setToolbox($value)
     {
         $this->toolbox = $value;
@@ -154,6 +186,14 @@ abstract class Tool implements Arrayable
 
         if (filled($toolbox = $this->getToolbox())) {
             $parameters['toolbox'] = $toolbox;
+        }
+
+        if (filled($tunes = $this->getTunes())) {
+            $parameters['tunes'] = $tunes;
+        }
+
+        if (filled($isGlobalTune = $this->getIsGlobalTune())) {
+            $parameters['isGlobalTune'] = $isGlobalTune;
         }
 
         return $parameters;

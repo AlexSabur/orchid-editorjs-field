@@ -24,6 +24,8 @@ export default class extends window.Controller {
     QuoteTool,
   }
 
+  tunes = []
+
   initialize() {
     window.editorJSTools = window.editorJSTools || []
   }
@@ -35,6 +37,7 @@ export default class extends window.Controller {
       holder: this.holderTarget,
 
       tools: tools,
+      tunes: this.tunes,
 
       data: this.value,
 
@@ -91,6 +94,10 @@ export default class extends window.Controller {
         }
       } else {
         json[key].class = this.getClass(json[key].class)
+      }
+
+      if (json[key]?.isGlobalTune) {
+        this.tunes.push(key)
       }
 
       const detail = {
