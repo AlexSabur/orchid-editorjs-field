@@ -49,14 +49,17 @@ class EditorJS extends Field
 
             if (is_array($value)) {
                 $this->set('value', json_encode($value, ENT_QUOTES));
+                return;
             }
 
             if ($value instanceof Jsonable) {
                 $this->set('value', $value->toJson(ENT_QUOTES));
+                return;
             }
 
             if ($value instanceof Arrayable) {
                 $this->set('value', json_encode($value->toArray(), ENT_QUOTES));
+                return;
             }
 
             if (null === $value) {
