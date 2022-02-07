@@ -13,13 +13,12 @@ class EditorJSServiceProvider extends ServiceProvider
     public function register()
     {
         $this->booted(function () {
-            Dashboard::addPublicDirectory(
-                'editorjs',
-                __DIR__ .  '/../../../public'
-            );
+            $this->publishes([
+                __DIR__ .  '/../../../public' => public_path('vendor/orchid-editorjs-field'),
+            ], ['orchid-editorjs-field-assets', 'laravel-assets']);
 
             View::composer('platform::app', function () {
-                Dashboard::registerResource('scripts', orchid_mix('/js/editorjs.js', 'editorjs'));
+                Dashboard::registerResource('scripts', mix('/js/editorjs.js', 'vendor/orchid-editorjs-field'));
             });
 
             if ($this->app->runningInConsole()) {
