@@ -2,7 +2,6 @@
 
 namespace AlexSabur\OrchidEditorJSField\Support\Commands;
 
-use AlexSabur\OrchidEditorJSField\Providers\ServiceProvider;
 use Illuminate\Console\GeneratorCommand;
 
 class ToolCommand extends GeneratorCommand
@@ -35,14 +34,13 @@ class ToolCommand extends GeneratorCommand
      */
     protected function getStub(): string
     {
-        return __DIR__ . '/../../../resources/stubs/editorjs.tool.stub';
+        return __DIR__.'/../../../resources/stubs/editorjs.tool.stub';
     }
 
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
-     *
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace): string

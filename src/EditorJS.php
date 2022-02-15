@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Jsonable;
 use Orchid\Screen\Field;
 
 /**
- *
  * @method EditorJS value($value = null)
  */
 class EditorJS extends Field
@@ -49,16 +48,19 @@ class EditorJS extends Field
 
             if (is_array($value)) {
                 $this->set('value', json_encode($value, ENT_QUOTES));
+
                 return;
             }
 
             if ($value instanceof Jsonable) {
                 $this->set('value', $value->toJson(ENT_QUOTES));
+
                 return;
             }
 
             if ($value instanceof Arrayable) {
                 $this->set('value', json_encode($value->toArray(), ENT_QUOTES));
+
                 return;
             }
 
@@ -82,7 +84,7 @@ class EditorJS extends Field
     }
 
     /**
-     * @param Tools\Tool[]|string $tools
+     * @param  Tools\Tool[]|string  $tools
      * @return $this
      */
     public function tools($tools)

@@ -2,7 +2,6 @@
 
 namespace AlexSabur\OrchidEditorJSField\Support\Providers;
 
-use AlexSabur\OrchidEditorJSField\EditorJS;
 use AlexSabur\OrchidEditorJSField\Support\Commands\ToolCommand;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +13,7 @@ class EditorJSServiceProvider extends ServiceProvider
     {
         $this->booted(function () {
             $this->publishes([
-                __DIR__ .  '/../../../public' => public_path('vendor/orchid-editorjs-field'),
+                __DIR__.'/../../../public' => public_path('vendor/orchid-editorjs-field'),
             ], ['orchid-editorjs-field-assets', 'laravel-assets']);
 
             View::composer('platform::app', function () {
@@ -28,11 +27,11 @@ class EditorJSServiceProvider extends ServiceProvider
             }
 
             $this->loadViewsFrom(
-                __DIR__ . '/../../../resources/views',
+                __DIR__.'/../../../resources/views',
                 'orchid-editorjs-field'
             );
 
-            $this->loadRoutesFrom(__DIR__ . '/../../../routes/systems.php');
+            $this->loadRoutesFrom(__DIR__.'/../../../routes/systems.php');
         });
     }
 }

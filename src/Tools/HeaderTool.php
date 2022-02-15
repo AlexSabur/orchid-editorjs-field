@@ -2,9 +2,6 @@
 
 namespace AlexSabur\OrchidEditorJSField\Tools;
 
-/**
- *
- */
 class HeaderTool extends Tool
 {
     /**
