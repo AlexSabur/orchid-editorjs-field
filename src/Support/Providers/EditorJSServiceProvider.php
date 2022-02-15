@@ -2,7 +2,6 @@
 
 namespace AlexSabur\OrchidEditorJSField\Support\Providers;
 
-use AlexSabur\OrchidEditorJSField\EditorJS;
 use AlexSabur\OrchidEditorJSField\Support\Commands\ToolCommand;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
