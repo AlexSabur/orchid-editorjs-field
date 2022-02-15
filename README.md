@@ -13,7 +13,7 @@ Package description: Work in process
 
 Install via composer
 ```bash
-composer require alexsabur/orchid-editorjs-field:dev-master
+composer require alexsabur/orchid-editorjs-field
 ```
 
 ## Usage
