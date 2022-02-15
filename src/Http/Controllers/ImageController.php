@@ -5,9 +5,6 @@ namespace AlexSabur\OrchidEditorJSField\Http\Controllers;
 use AlexSabur\OrchidEditorJSField\Support\Actions\LoadImage;
 use Illuminate\Http\Request;
 use Orchid\Platform\Http\Controllers\Controller;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
-use Orchid\Attachment\File;
 
 class ImageController extends Controller
 {

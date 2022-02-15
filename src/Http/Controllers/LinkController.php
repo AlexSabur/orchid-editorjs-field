@@ -20,7 +20,7 @@ class LinkController
             report($th);
 
             return response()->json([
-                'success' => 0
+                'success' => 0,
             ]);
         }
     }

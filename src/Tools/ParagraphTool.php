@@ -2,9 +2,6 @@
 
 namespace AlexSabur\OrchidEditorJSField\Tools;
 
-/**
- *
- */
 class ParagraphTool extends Tool
 {
     /**

@@ -3,12 +3,12 @@
 namespace AlexSabur\OrchidEditorJSField\Support\Actions;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 
 class LoadSiteInfo
 {
-    static public $callback;
+    public static $callback;
 
     public static function callbackUsing($callback)
     {
@@ -16,8 +16,7 @@ class LoadSiteInfo
     }
 
     /**
-     *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function handle(Request $request)
@@ -47,7 +46,8 @@ class LoadSiteInfo
         return $result;
     }
 
-    protected function getMeta($html, $key) {
+    protected function getMeta($html, $key)
+    {
         preg_match("/<meta.*?name=(\"|\'){$key}(\"|\').*?content=(\"|\')(.*?)(\"|\')/i", $html, $matches);
 
         if (count($matches) > 4) {

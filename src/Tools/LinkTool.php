@@ -12,7 +12,7 @@ class LinkTool extends Tool
     public function getDefaultConfig()
     {
         return [
-            'endpoint' => route('platform.systems.editorjs.link')
+            'endpoint' => route('platform.systems.editorjs.link'),
         ];
     }
 }

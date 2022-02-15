@@ -4,14 +4,14 @@ namespace AlexSabur\OrchidEditorJSField\Support\Actions;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Orchid\Attachment\File;
 use Illuminate\Support\Str;
+use Orchid\Attachment\File;
 
 class LoadImage
 {
-    static public $loadByUrlCallback;
+    public static $loadByUrlCallback;
 
-    static public $loadByRequestCallback;
+    public static $loadByRequestCallback;
 
     public static function loadByUrlUsing($callback)
     {
@@ -24,8 +24,7 @@ class LoadImage
     }
 
     /**
-     *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function loadByUrl(Request $request)
@@ -48,23 +47,21 @@ class LoadImage
 
         $mediaExtension = explode('/', mime_content_type($temporaryFile));
 
-        if (!Str::contains($filename, '.')) {
+        if (! Str::contains($filename, '.')) {
             $filename = "{$filename}.{$mediaExtension[1]}";
         }
-
 
         $file = new UploadedFile($temporaryFile, $filename);
 
         $model = $this->createModel($file, $request);
 
         return [
-            'url' => $model->url
+            'url' => $model->url,
         ];
     }
 
     /**
-     *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function loadByRequest(Request $request)
@@ -78,7 +75,7 @@ class LoadImage
         $model = $this->createModel($image, $request);
 
         return [
-            'url' => $model->url
+            'url' => $model->url,
         ];
     }
 

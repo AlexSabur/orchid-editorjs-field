@@ -12,32 +12,36 @@ abstract class Tool implements Arrayable
     use Makeable;
 
     /**
-     * Name of tool
+     * Name of tool.
      *
      * @var null|string
      */
     protected $name;
 
     /**
-     * Javascript class Name
+     * Javascript class Name.
+     *
      * @var mixed
      */
     protected $class;
 
     /**
-     * Is tune flag
+     * Is tune flag.
+     *
      * @var bool|null
      */
     protected $isGlobalTune;
 
     /**
      * @var null|bool|array
+     *
      * @see https://editorjs.io/enable-inline-toolbar#enable-inline-toolbar
      */
     protected $inlineToolbar;
 
     /**
      * @var null|string
+     *
      * @see https://editorjs.io/enable-inline-toolbar#enable-inline-toolbar
      */
     protected $shortcut;
@@ -78,9 +82,8 @@ abstract class Tool implements Arrayable
     }
 
     /**
-     *
-     * @param Closure|array $config
-     * @param bool $merge
+     * @param  Closure|array  $config
+     * @param  bool  $merge
      * @return $this
      */
     public function setConfig($config, $merge = true)
@@ -168,7 +171,7 @@ abstract class Tool implements Arrayable
      */
     public function toArray()
     {
-        $parameters =  [
+        $parameters = [
             'class' => $this->getClass(),
         ];
 
