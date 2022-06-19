@@ -17,9 +17,18 @@
   "require": {
     "orchid/platform": "^12.0"
   },
+  "require-dev": {
+    "orchestra/testbench": "^7.0",
+    "phpunit/phpunit": "^9.0"
+  },
   "autoload": {
     "psr-4": {
       "AlexSabur\\OrchidEditorJSField\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
     }
   },
   "scripts": {
