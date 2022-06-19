@@ -14,11 +14,11 @@ class FieldTest extends TestCase
     {
         $field = EditorJS::make('defaultField');
 
-        $this->assertStringContainsString("data-controller=\"editorjs\"", (string) $field);
+        $this->assertStringContainsString('data-controller="editorjs"', (string) $field);
 
         $field = EditorJS::make('hiddenField')->hidden();
 
-        $this->assertStringNotContainsString("data-controller=\"editorjs\"", (string) $field);
+        $this->assertStringNotContainsString('data-controller="editorjs"', (string) $field);
     }
 
     public function testInputTypes(): void
@@ -27,31 +27,31 @@ class FieldTest extends TestCase
 
         $field = EditorJS::make('fieldNullValue')->value(null);
 
-        $this->assertStringContainsString("value=\"{}", (string) $field);
-        
+        $this->assertStringContainsString('value="{}', (string) $field);
+
         $field = EditorJS::make('fieldStringValue')->value('{"time":1234567890,"blocks":[],"version":"2.22.2"}');
-        
+
         $this->assertStringContainsString("value=\"{$json}\"", (string) $field);
-        
+
         $field = EditorJS::make('fieldArrayValue')->value($this->getInputTypeArray());
-        
+
         $this->assertStringContainsString("value=\"{$json}\"", (string) $field);
-        
+
         $field = EditorJS::make('fieldJsonableValue')->value($this->getInputTypeJsonableClass());
-        
+
         $this->assertStringContainsString("value=\"{$json}\"", (string) $field);
-        
+
         $field = EditorJS::make('fieldArrayableValue')->value($this->getInputTypeArrayableClass());
-        
+
         $this->assertStringContainsString("value=\"{$json}\"", (string) $field);
     }
 
     public function getInputTypeArray()
     {
         return [
-            "time" => 1234567890,
-            "blocks" => [],
-            "version" => "2.22.2",
+            'time' => 1234567890,
+            'blocks' => [],
+            'version' => '2.22.2',
         ];
     }
 
@@ -67,9 +67,9 @@ class FieldTest extends TestCase
             public function toArray()
             {
                 return [
-                    "time" => 1234567890,
-                    "blocks" => [],
-                    "version" => "2.22.2",
+                    'time' => 1234567890,
+                    'blocks' => [],
+                    'version' => '2.22.2',
                 ];
             }
         };
@@ -82,9 +82,9 @@ class FieldTest extends TestCase
             public function toArray()
             {
                 return [
-                    "time" => 1234567890,
-                    "blocks" => [],
-                    "version" => "2.22.2",
+                    'time' => 1234567890,
+                    'blocks' => [],
+                    'version' => '2.22.2',
                 ];
             }
         };
